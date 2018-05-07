@@ -159,30 +159,21 @@ botClose.onclick = () => {
 };
 
 /**
-=======
-topDoor.onclick = () => {changeDoor(0);};
-botDoor.onclick = () => {changeDoor(1);};
-topClose.onclick = () => {changeDoor(0);};
-botClose.onclick = () => {changeDoor(1);};
-
-/**
  * Check if an image file exists
  * @param {string} source - name of the image file
  */
-function check_img(source) {
+function check_img(source, item) {
     var img = new Image();
     img.src = "../imgs/" + source + ".png";
-    img.onload = () => {return true;}
-    img.onerror = () => {return false;}
+    img.onerror = () => {item.style.backgroundImage = "url(../imgs/box.png)";};
+    return true;
 }
 
 /** 
->>>>>>> c306932f68795077a241204aa40cd054980f5f33
  * Auto generate objects for each fridge item and store in VegList
  * @param {list} list - list of names of fridge contents
  */
 function populate(list) {
-    console.log(list);
     var extra = vegList.length; // slot shift
     for (var i = 0; i < list.length; i += 1) {
         if (vegList.length >= 15) {  // fridge full
@@ -195,10 +186,8 @@ function populate(list) {
         item.dataset.tag = list[i];
 
         // check if image file exist
-        if (check_img(list[i])) {
-            item.style.backgroundImage = "url(../imgs/" + list[i] + ".png)";            
-        } else {
-            item.style.backgroundImage = "url(../imgs/box.png)";
+        if (check_img(list[i], item)) {
+            item.style.backgroundImage = "url(../imgs/" + list[i] + ".png)";                        
         }
 
         item.style.display = "block";
