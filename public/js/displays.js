@@ -105,6 +105,7 @@ function showResults() {
                         ingredientLines: recipe.ingredientLines,
                         currentUser: currentUser
                     });
+                    
                     swal('Success', `Added ${recipe.label} to Favourites!`, 'success');
                     hiddenFavForm.submit();
                 } else {
