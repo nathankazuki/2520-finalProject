@@ -2,6 +2,7 @@
 var coll = document.getElementsByClassName("collapsible");
 var currentResults, currentUser, currentSearchHistory;
 var pushleft = true;
+var logoCat = document.getElementById("logo");
 
 /*-------------foodDisplay-------------*/
 showSearchHistory();
@@ -11,10 +12,15 @@ showSearchHistory();
  */
 function showSearchHistory() {
     currentSearchHistory = JSON.parse(localStorage.getItem('searchHistory'));
+
     if (!currentSearchHistory) {
-        localStorage.setItem('searchHistory', JSON.stringify({}));
+        currentSearchHistory = {};
+        currentSearchHistory[currentUser] = [];
+
+        localStorage.setItem('searchHistory', JSON.stringify(currentSearchHistory));
         currentSearchHistory = JSON.parse(localStorage.getItem('searchHistory'));
     }
+
     var foodList = document.getElementById('food-list');
 
     if (!currentSearchHistory[currentUser]) {
@@ -88,19 +94,22 @@ function showResults() {
         var saveFavBtn = document.createElement('button');
         saveFavBtn.onclick = (function (recipe) {
             return function () {
-                addRecipeLabelBtn(recipe);
-                addToFavoritesList(recipe);
-                hiddenFavInp.value = JSON.stringify({
-                    uri: recipe.uri,
-                    label: recipe.label,
-                    dietLabels: recipe.dietLabels,
-                    healthLabels: recipe.healthLabels,
-                    image: recipe.image,
-                    ingredientLines: recipe.ingredientLines,
-                    currentUser: currentUser
-                });
-                swal(`Added ${recipe.label} to Favourites!`);
-                hiddenFavForm.submit();
+                if (noRepeat(recipe)) {
+                    addToFavoritesList(recipe);
+                    hiddenFavInp.value = JSON.stringify({
+                        uri: recipe.uri,
+                        label: recipe.label,
+                        dietLabels: recipe.dietLabels,
+                        healthLabels: recipe.healthLabels,
+                        image: recipe.image,
+                        ingredientLines: recipe.ingredientLines,
+                        currentUser: currentUser
+                    });
+                    swal('Success', `Added ${recipe.label} to Favourites!`, 'success');
+                    hiddenFavForm.submit();
+                } else {
+                    swal('Error', `${recipe.label} is already in Favourites!`, 'error');
+                }
             }
         })(currentResults[i].recipe);
         saveFavBtn.className = 'saveFavBtn';
@@ -174,4 +183,8 @@ hiddenpush.onclick = function () {
     } else if (!pushleft) {
         showPusheen();
     }
+};
+
+logoCat.onclick = function () {
+    swal("Welcome to Pusheen Nomnoms","This is a recipe search app!");
 };
