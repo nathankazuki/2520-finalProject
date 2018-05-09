@@ -2,7 +2,6 @@
 var coll = document.getElementsByClassName("collapsible");
 var currentResults, currentUser, currentSearchHistory;
 var pushleft = true;
-var logoCat = document.getElementById("logo");
 
 /*-------------foodDisplay-------------*/
 showSearchHistory();
@@ -105,7 +104,7 @@ function showResults() {
                         ingredientLines: recipe.ingredientLines,
                         currentUser: currentUser
                     });
-                    
+
                     swal('Success', `Added ${recipe.label} to Favourites!`, 'success');
                     hiddenFavForm.submit();
                 } else {
@@ -184,8 +183,4 @@ hiddenpush.onclick = function () {
     } else if (!pushleft) {
         showPusheen();
     }
-};
-
-logoCat.onclick = function () {
-    swal("Welcome to Pusheen Nomnoms","This is a recipe search app!");
 };
