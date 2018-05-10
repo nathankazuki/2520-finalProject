@@ -324,17 +324,24 @@ function hoverVeg(object, exit = 0) {
     print_list();
 }
 
-var fridgeDiv = document.getElementById("fridge"),
-    fridgeState = false; // false = hidden
+var fridgeDiv = document.getElementById("fridge")
 /**
- * fridge display button toggle
+ * fridge display open
  */
-function fridgeToggle() {
-    if (fridgeState) {
-        fridgeState = false;
-        fridgeDiv.style.display = "none";
-    } else {
-        fridgeState = true;
-        fridgeDiv.style.display = "block";
+function fridgeOpen() {
+    fridgeDiv.style.display = "block";
+}
+/**
+ * fridge display close
+ */
+function fridgeClose() {
+    fridgeDiv.style.display = "none";
+}
+/**
+ * fridge display close when clicking outside the window
+ */
+window.onclick = function(ev) {
+    if (ev.target == fridgeDiv) {
+        fridgeClose();
     }
 }
