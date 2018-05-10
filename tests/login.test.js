@@ -42,14 +42,14 @@ describe("testing no repeat users", () => {
 
 describe("testing authenticate chef", () => {
     test("existing user", () => {
-        expect(utils.authenticateChef(chefRecords[0].username, chefRecords[0].password)).toBe("logged in");
+        expect(utils.authenticateChef(chefRecords[0].username, chefRecords[0].password)).toBe("logged in")
     });
-    
+
     test("wrong password", () => {
-        expect(utils.authenticateChef(chefRecords[0].username, "123")).toBe("authentication failure");
+        expect(utils.authenticateChef(chefRecords[0].username, "123")).toBe("authentication failure")
     });
-    
+
     test("nonexisting user", () => {
-        expect(utils.authenticateChef("123", "123")).toBe("no username");
-    });
+        expect(utils.authenticateChef("123", "123")).toBe("no username")
+    })
 });
