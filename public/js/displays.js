@@ -37,17 +37,33 @@ function showSearchHistory() {
         ndiv.innerHTML = currentSearchHistory[currentUser][i].value;
         var tags = Object.values(currentSearchHistory[currentUser][i]);
         for (j = 1; j < tags.length - 1; j++) {
-            if (` ${tags[j]} `.trim() == "exclude") {
+            if (` ${tags[j]} `.trim() === "exclude") {
                 break;
             }
-            ndiv.innerHTML += ` ${tags[j]} `;
+            if (j===1) { //Health tags
+                var ntext1 = document.createElement("i");
+                ntext1.style.color = "black";
+                ntext1.innerHTML += ` ${tags[j]} `;
+                ndiv.appendChild(ntext1);
+            }
+            if (j===2) { //Diet tags
+                var ntext2 = document.createElement("i");
+                ntext2.style.color = "green";
+                ntext2.innerHTML += ` ${tags[j]} `;
+                ndiv.appendChild(ntext2);
+            }
+            if (j===3) { //Exclude tags
+                var ntext3 = document.createElement("u");
+                ntext3.style.color = "red";
+                ntext3.innerHTML += ` ${tags[j]} `;
+                ndiv.append(ntext3);
+            }
         }
 
         ndiv.className = "added-ingredients";
         ndiv.style.cursor = "pointer";
         ndiv.setAttribute('href', '/search?' + currentSearchHistory[currentUser][i].query);
         ndiv.setAttribute("id", "food-" + i);
-
         foodList.appendChild(ndiv2);
         ndiv2.appendChild(ndiv);
         ndiv2.appendChild(document.createElement('br'));
@@ -69,14 +85,14 @@ function showResults() {
 
         node.href = currentResults[i].recipe.url;
         node.innerHTML = currentResults[i].recipe.label;
-        nodeLABELS.innerHTML = "<br> HEALTH: " + currentResults[i].recipe.healthLabels + "<br> DIET: " + currentResults[i].recipe.dietLabels +
+        nodeLABELS.innerHTML = "HEALTH: " + currentResults[i].recipe.healthLabels + "<br> DIET: " + currentResults[i].recipe.dietLabels +
             "<br> INGREDIENTS: " + currentResults[i].recipe.ingredientLines;
 
         node.setAttribute('id', i.toString());
         node.setAttribute('target', '_new');
         node.className = 'searchResultsLink';
 
-        nodeLABELS.style.maxHeight = "30vh";
+        nodeLABELS.style.height = "30vh";
         nodeLABELS.style.overflowY = "auto";
         nodeIMAGE.className = 'searchResultsImgs';
         nodeIMAGE.setAttribute("src", currentResults[i].recipe.image);
@@ -104,7 +120,7 @@ function showResults() {
                         ingredientLines: recipe.ingredientLines,
                         currentUser: currentUser
                     });
-                    swal('Success', `Added ${recipe.label} to Favourites!`, 'success').then(() => {
+                   swal('Success', `Added ${recipe.label} to Favourites!`, 'success').then(() => {
                         hiddenFavForm.submit()
                     });
                 } else {
@@ -115,16 +131,16 @@ function showResults() {
         saveFavBtn.className = 'saveFavBtn';
         saveFavBtn.innerHTML = 'Save to Favourites';
 
-        nDiv.appendChild(node);
-        nDiv.appendChild(document.createElement('br'));
         nDiv.appendChild(nodeIMAGE);
+        nDiv.appendChild(document.createElement('br'));
+        nDiv.appendChild(node);
         nDiv.appendChild(nodeLABELS);
         nDiv.appendChild(hiddenFavForm);
         nDiv.appendChild(saveFavBtn);
         nDiv.appendChild(document.createElement('br'));
         nDiv.appendChild(document.createElement('br'));
 
-        nDiv.className = "col-sm-6 col-md-4";
+        nDiv.className = "col-md-4 col-lg-3 col-sm-6 col-xs-12";
         nDiv.style.display = "inline-block";
         nDiv.style.float = "none";
         nDiv.style.verticalAlign = "top";
