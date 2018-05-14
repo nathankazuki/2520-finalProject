@@ -36,7 +36,7 @@ function showSearchHistory() {
         var ndiv = document.createElement("a");
         ndiv.innerHTML = currentSearchHistory[currentUser][i].value;
         var tags = Object.values(currentSearchHistory[currentUser][i]);
-        for (j = 1; j < tags.length - 1; j++) {
+        for (var j = 1; j < tags.length - 1; j++) {
             if (` ${tags[j]} `.trim() === "exclude") {
                 break;
             }
@@ -121,12 +121,12 @@ function showResults() {
                         currentUser: currentUser
                     });
                    swal('Success', `Added ${recipe.label} to Favourites!`, 'success').then(() => {
-                        hiddenFavForm.submit()
+                        hiddenFavForm.submit();
                     });
                 } else {
                     swal('Error', `${recipe.label} is already in Favourites!`, 'error');
                 }
-            }
+            };
         })(currentResults[i].recipe);
         saveFavBtn.className = 'saveFavBtn';
         saveFavBtn.innerHTML = 'Save to Favourites';
@@ -166,7 +166,7 @@ for (var i = 0; i < coll.length; i++) {
         }
     });
 }
-;
+
 
 var hiddenpush = document.getElementById("hiddenpusheen");
 
@@ -186,7 +186,7 @@ function showPusheen() {
 function hidePusheen() {
     document.getElementById("ctrlpanel").style.left = '-80%';
     hiddenpush.style.left = "0%";
-    pushleft = 1
+    pushleft = 1;
 }
 
 hiddenpush.onclick = function () {
@@ -223,14 +223,14 @@ var logo = document.getElementById("logo");
 
 logo.addEventListener("click", function(){
     openInfo();
-})
+});
 
 /**
  * fridge display close when clicking outside the window
  */
 window.addEventListener("click", function(ev) {
-    if (ev.target == infoModal) {
+    if (ev.target === infoModal) {
         infoModal.style.display = "none";
     }
-})
+});
 

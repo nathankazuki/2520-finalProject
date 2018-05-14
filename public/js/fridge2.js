@@ -5,7 +5,7 @@
  * returns false if it has content
  */
 function checkBlank(str) {
-    if (str.trim() == "") {
+    if (str.trim() === "") {
         return true;
     } else {
         return false;
@@ -48,7 +48,7 @@ function delToggle(state, object) {
  * returns the index of the dom object data in the object array
  */
 function searchIndex(object, objList) {
-    return objList.findIndex(x => x.id == object.dataset.tag);
+    return objList.findIndex(x => x.id === object.dataset.tag);
 }
 
 /**
@@ -81,4 +81,4 @@ module.exports = {
     searchIndex,
     findPosition,
     checkImg
-}
+};
